@@ -1,0 +1,85 @@
+DROP DATABASE salesdb;
+CREATE DATABASE salesdb;
+USE salesdb;
+SHOW DATABASES;
+-- lord laurence
+CREATE TABLE customer_tbl(
+customer_id INT(3) AUTO_INCREMENT PRIMARY KEY,
+full_name VARCHAR(30)NOT NULL,
+email VARCHAR(50) NOT NULL UNIQUE);
+
+DESCRIBE customer_tbl;
+-- insert 2 table
+INSERT INTO customer_tbl (full_name, email)
+VALUES ('John Smith', 'john@example.com'),
+('Jane Doe', 'jane@example.com');
+
+SELECT * FROM customer_tbl;
+
+CREATE TABLE product_tbl(
+product_id INT(3) PRIMARY KEY,
+product_name VARCHAR(15) NOT NULL,
+price FLOAT(7,2) CHECK (price > 0));
+
+INSERT INTO product_tbl
+VALUES(501, 'laptop', 1000.00);
+
+SELECT * FROM product_tbl;
+
+
+INSERT INTO product_tbl
+VALUES(502, 'mouse', 25.00);
+
+SELECT * FROM product_tbl;
+
+
+CREATE TABLE order_tbl(
+order_id INT(50) AUTO_INCREMENT PRIMARY KEY,
+customer_id INT(50),
+FOREIGN KEY (customer_id) REFERENCES customer_tbl (customer_id) ON DELETE CASCADE, 
+order_date DATE NOT NULL,
+total_amount FLOAT(3,2) CHECK (total_amount > 0));
+
+
+
+
+
+INSERT INTO order_tbl
+VALUES (1001, 1, 2023-09-10, 150.00);
+
+
+ALTER TABLE order_tbl MODIFY COLUMN total_amount FLOAT (6,2);
+DESCRIBE order_tbl;
+
+UPDATE order_tbl
+SET total_amount = 150.00
+WHERE customer_id = 1;
+
+UPDATE order_tbl 
+SET order_date = "2023-09-10"
+WHERE customer_id = 1;
+
+INSERT INTO order_tbl
+VALUES (1002, 2, "2023-09-11", 200.00);
+
+SELECT * FROM order_tbl;
+
+CREATE TABLE order_details_tbl(
+order_id INT(50),
+product_id INT(50),
+FOREIGN KEY (order_id) REFERENCES order_tbl (order_id) ON DELETE CASCADE,
+FOREIGN KEY (product_id) REFERENCES product_tbl (product_id) ON DELETE CASCADE, 
+quantity FLOAT(3,2) CHECK (quantity > 0));
+
+DESCRIBE order_details_tbl;
+
+INSERT INTO order_details_tbl
+VALUES (1001, 501, 1);
+
+INSERT INTO order_details_tbl
+VALUES (1002, 502, 2);
+
+INSERT INTO order_details_tbl
+VALUES (1001, 502, 1);
+
+SELECT * FROM order_details_tbl;
