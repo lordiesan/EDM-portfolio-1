@@ -1,0 +1,19 @@
+##task 1
+CREATE TABLE products (
+product_id INT,
+product_name VARCHAR(100),
+price DECIMAL(6,2) CHECK (price >= 0) DEFAULT 0.00
+);
+
+DESCRIBE products;
+##TASK 3
+##INSERT INTO products VALUES(, '', );
+INSERT INTO products VALUES(1, 'Laptop', 999.99);
+INSERT INTO products VALUES(3, 'Smartphones',599.99 );
+INSERT INTO products VALUES(4, 'Tablet',299.99 );
+INSERT INTO products VALUES(2, 'Headphones',-49.99 );
+
+SELECT * FROM products;
+
+
+

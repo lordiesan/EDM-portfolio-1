@@ -1,0 +1,22 @@
+CREATE TABLE student_tbl (
+username VARCHAR(50)
+);
+
+DESCRIBE student_tbl;
+
+CREATE TABLE assignment_tbl (
+shortname VARCHAR(50),
+due_date DATE,
+url VARCHAR (50) NULL
+);
+DESCRIBE assignment_tbl;
+
+CREATE TABLE submission_tbl (
+username VARCHAR(50),
+shortname VARCHAR(50),
+version INT,
+submit_date DATE,
+data TEXT
+);
+
+DESCRIBE submission_tbl;
