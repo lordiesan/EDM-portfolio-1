@@ -1,1 +1,114 @@
-/readme.md
+task 1
+DROP database multilevel_company;
+create DATABASE multilevel_company;
+USE multilevel_company;
+##task 1
+create table employees(
+employee_id INT auto_increment primary key,
+employee_name varchar(255) NOT NULL,
+manager_id INT,
+foreign key (manager_id) references employees(employee_id) ON UPDATE CASCADE
+);
+
+describe employees;
+##task 2
+
+create table departments (
+department_id INT auto_increment primary key,
+department_name varchar (255) NOT NULL
+);
+describe departments;
+
+##task3
+
+create table employee_departments(
+employee_id INT,
+department_id INT,
+PRIMARY KEY (employee_id,department_id),
+foreign key (employee_id) references employees (employee_id) ON update cascade,
+foreign key (department_id) references departments (department_id) ON update cascade
+);
+
+DROP TABLE employee_departments;
+
+##TASK4
+create table employee_projects(
+employee_id INT auto_increment primary key,
+project_name varchar(255) NOT NULL
+);
+
+describe employee_projects;
+##TASK5 
+
+create table managers (
+manager_id INT auto_increment primary key,
+employee_id INT,
+foreign key (employee_id) references employees (employee_id) on update cascade
+);
+describe managers;
+
+show databases;
+
+
+task 2
+create DATABASE TASK_2;
+USE TASK_2;
+
+CREATE TABLE student (
+    username VARCHAR(50) PRIMARY KEY
+);
+
+describe student;
+CREATE TABLE assignment (
+    shortname VARCHAR(50) PRIMARY KEY,
+    due_date DATE NOT NULL,
+    url VARCHAR(255)
+);
+
+describe assignment;
+
+CREATE TABLE submission (
+    username VARCHAR(50),
+    shortname VARCHAR(50),
+    version INT,
+    submit_date DATE NOT NULL,
+    data TEXT,
+    PRIMARY KEY (username, shortname, version),
+    FOREIGN KEY (username) REFERENCES student(username) ON DELETE CASCADE,
+    FOREIGN KEY (shortname) REFERENCES assignment(shortname) ON DELETE CASCADE
+);
+describe submission;
+
+show databases;
+
+
+task 3
+
+create database task_3;
+
+use task_3;
+
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2)
+);
+
+describe products;
+
+ALTER TABLE products
+ADD CONSTRAINT chk_price_positive CHECK (price > 0);
+
+INSERT INTO products (product_name, price) VALUES
+('Laptop', 999.99),
+('Smartphone', 599.99),
+('Tablet', 299.99),
+('Keyboard', 19.99),
+('Mouse', 14.99),
+('Desk Lamp', 24.99),
+('Speakers', 9.99);
+
+ALTER TABLE products
+MODIFY COLUMN product_name VARCHAR(120) NOT NULL;
+
+select*from products;
